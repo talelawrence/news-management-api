@@ -4,9 +4,9 @@ http:
   
 db:
   mysql:
-    host: 3.24.135.124
-    port: 3004
-    user: devroot
-    pass: devroot
-    name: conferences
+    host: 0
+    port: 0
+    user: 0
+    pass: 0
+    name: 0
     debug: false
