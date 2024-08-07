@@ -1,0 +1,12 @@
+http:
+  host: 'localhost'
+  port: 4000
+  
+db:
+  mysql:
+    host: 3.24.135.124
+    port: 3004
+    user: devroot
+    pass: devroot
+    name: conferences
+    debug: false
