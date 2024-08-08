@@ -26,28 +26,52 @@ export class NewsdataService {
         return data;
     }
 
-    async getNewsDataListSearch(req : SearchRequest) {
-        const contentSearch = `%${req.contentsearch}%`; // For LIKE query
-    const countrySearch = req.countrysearch;
-    const flagDaily = 1;
-    const flagSpecial = 2;
-
-    console.log([contentSearch, countrySearch, flagDaily, req.startdate, req.enddate, req.fiscalyear])
-    const dataDaily = await this.mainGroupNewRepository.query(
-      "SELECT ndt.id, ndt.news_title as superheader, ndt.news_image as image, sgn.name as `type`, ndt.news_detail as context FROM news_data ndt left join sub_group_news sgn ON sgn.id = ndt.sub_news_group WHERE news_title LIKE ? AND country = ? AND flag = ? AND DATE(news_date) BETWEEN DATE(?) AND DATE(?) and YEAR(news_date) = ?",
-      [contentSearch, countrySearch, flagDaily, req.startdate, req.enddate, req.fiscalyear]
-    )
-
-    const dataSpecial = await this.mainGroupNewRepository.query(
-      "SELECT ndt.id, ndt.news_title as superheader, ndt.news_image as image, sgn.name as `type`, ndt.news_detail as context FROM news_data ndt left join sub_group_news sgn ON sgn.id = ndt.sub_news_group WHERE news_title LIKE ? AND country = ? AND flag = ? AND DATE(news_date) BETWEEN DATE(?) AND DATE(?) and YEAR(news_date) = ?",
-      [contentSearch, countrySearch, flagSpecial, req.startdate, req.enddate, req.fiscalyear]
-    );
-    const data = {
-        dailynews: dataDaily,
-        specialnews : dataSpecial
-    }
+    async getNewsDataListSearch(req: SearchRequest) {
+        let baseQuery = `
+            SELECT 
+                ndt.id, 
+                ndt.news_title as superheader, 
+                ndt.news_image as image, 
+                sgn.name as \`type\`, 
+                ndt.news_detail as context 
+            FROM 
+                news_data ndt 
+                LEFT JOIN sub_group_news sgn ON sgn.id = ndt.sub_news_group 
+            WHERE 
+                1=1`;
         
-        return data;
+        let params: any[] = [];
+    
+        if (req.contentsearch) {
+            baseQuery += " AND news_title LIKE ?";
+            params.push(`%${req.contentsearch}%`);
+        }
+    
+        if (req.countrysearch) {
+            baseQuery += " AND country = ?";
+            params.push(req.countrysearch);
+        }
+    
+        if (req.startdate && req.enddate) {
+            baseQuery += " AND DATE(news_date) BETWEEN DATE(?) AND DATE(?)";
+            params.push(req.startdate, req.enddate);
+        }
+    
+        if (req.fiscalyear) {
+            baseQuery += " AND YEAR(news_date) = ?";
+            params.push(req.fiscalyear);
+        }
+    
+        const dailyQuery = baseQuery + " AND flag = ?";
+        const specialQuery = baseQuery + " AND flag = ?";
+        
+        const dataDaily = await this.mainGroupNewRepository.query(dailyQuery, [...params, 1]);
+        const dataSpecial = await this.mainGroupNewRepository.query(specialQuery, [...params, 2]);
+    
+        return {
+            dailynews: dataDaily,
+            specialnews: dataSpecial
+        };
     }
 
     async createNewsData( newsData: NewsDataRequest ) {
