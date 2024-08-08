@@ -35,7 +35,9 @@ export class NewsdataController {
     @Body() newsData: NewsDataRequest,
   ) {
     // Set the newsImage path in the DTO
-    newsData.newsImage = `/uploads/${file.filename}`;
+    if (file) {
+      newsData.newsImage = `/uploads/${file.filename}`;
+    }
 
     // Call the service to save the news data
     const data = await this.newsdataService.createNewsData(newsData);
