@@ -11,7 +11,7 @@ async function bootstrap() {
       methods: ["*"],
       allowedHeaders: "*"
   });
-  app.setGlobalPrefix('v1');
+  app.setGlobalPrefix('news');
 
   const port = configService.get('http.port');
   await app.listen(port);

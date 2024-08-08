@@ -1,7 +1,14 @@
 import { Logger, Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { region } from 'src/masterdata/entity/region';
+import { Country } from 'src/masterdata/entity/country';
+import { Departement } from 'src/masterdata/entity/department';
+import { District } from 'src/masterdata/entity/district';
+import { MainGroupNews } from 'src/masterdata/entity/maingroupnews';
+import { Province } from 'src/masterdata/entity/province';
+import { Region } from 'src/masterdata/entity/region';
+import { SubDistrict } from 'src/masterdata/entity/subdistrict';
+import { SubGroupNews } from 'src/masterdata/entity/subgroupnews';
 
 @Module({
     imports: [
@@ -28,7 +35,7 @@ import { region } from 'src/masterdata/entity/region';
                     username: user,
                     password: pass,
                     database: name,
-                    entities: [region],
+                    entities: [Region,MainGroupNews,Country,Province,SubGroupNews,SubDistrict,District,Departement],
                     // synchronize: true,
                     // autoLoadEntities: true,
                     logging: debug,
