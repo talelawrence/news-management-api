@@ -16,7 +16,7 @@ export class NewsdataController {
   }
   
 
-  @Post('create')
+  @Post('/create')
   @UseInterceptors(
     FileInterceptor('newsImage', {
       storage: diskStorage({
