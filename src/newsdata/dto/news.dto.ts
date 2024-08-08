@@ -29,3 +29,13 @@ export class NewsDataRequest {
     latitude: string;
     longitude: string;
 }
+
+export class SearchRequest {
+    fiscalyear: string;
+    startdate: string;
+    enddate: string;
+    contentsearch: string;
+    countrysearch: number;
+    subNews:  number 
+    mainNews:  number
+  }

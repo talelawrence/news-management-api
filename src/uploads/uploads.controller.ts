@@ -11,7 +11,7 @@ interface MulterFile {
 
 @Controller('uploads')
 export class UploadsController {
-  @Post('upload')
+  @Post('image')
   @UseInterceptors(
     FileInterceptor('file', {
       storage: diskStorage({

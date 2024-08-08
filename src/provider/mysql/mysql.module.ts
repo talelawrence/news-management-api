@@ -9,6 +9,7 @@ import { Province } from 'src/masterdata/entity/province';
 import { Region } from 'src/masterdata/entity/region';
 import { SubDistrict } from 'src/masterdata/entity/subdistrict';
 import { SubGroupNews } from 'src/masterdata/entity/subgroupnews';
+import { NewsData } from 'src/newsdata/entity/newsdata';
 
 @Module({
     imports: [
@@ -35,7 +36,7 @@ import { SubGroupNews } from 'src/masterdata/entity/subgroupnews';
                     username: user,
                     password: pass,
                     database: name,
-                    entities: [Region,MainGroupNews,Country,Province,SubGroupNews,SubDistrict,District,Departement],
+                    entities: [Region,MainGroupNews,Country,Province,SubGroupNews,SubDistrict,District,Departement,NewsData],
                     // synchronize: true,
                     // autoLoadEntities: true,
                     logging: debug,

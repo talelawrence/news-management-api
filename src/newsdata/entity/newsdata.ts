@@ -65,8 +65,4 @@ export class NewsData {
     @Column()
     news_image : string;
 
-    @OneToOne(() => MainGroupNews)
-    @JoinColumn()
-    mainGroupNews: MainGroupNews;
-
 }
