@@ -74,7 +74,7 @@ export class MasterdataService {
     }
 
     async getSubGroupNewsMasterDataById(id: number) {
-        const data = await this.subGroupNewsRepository.findBy({id: id});
+        const data = await this.subGroupNewsRepository.findBy({main_id: id});
         return data;
     }
 }
