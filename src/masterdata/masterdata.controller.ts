@@ -45,7 +45,7 @@ export class MasterdataController {
     return this.masterdataService.getDistrictMasterDataAll();
   }
 
-  @Get('/departement/all')
+  @Get('/department/all')
   getDepartementAll() {
     return this.masterdataService.getDepartementMasterDataAll();
   }
