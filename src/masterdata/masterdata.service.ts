@@ -62,12 +62,19 @@ export class MasterdataService {
         const data = await this.districtRepository.find();
         return data;
     }
+
     async getDepartementMasterDataAll( ) {
         const data = await this.departementRepository.find();
         return data;
     }
+
     async getRegionMasterDataAll( ) {
         const data = await this.regionRepository.find();
+        return data;
+    }
+
+    async getSubGroupNewsMasterDataById(id: number) {
+        const data = await this.subGroupNewsRepository.findBy({id: id});
         return data;
     }
 }
