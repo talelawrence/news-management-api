@@ -90,7 +90,7 @@ export class MasterdataController {
     return this.masterdataService.createDistrict(reqBody);
   }
 
-  @Post('departement/create')
+  @Post('department/create')
   createDepartement(@Body() reqBody: createReq) {
     return this.masterdataService.createDepartement(reqBody);
   }
