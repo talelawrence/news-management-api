@@ -51,4 +51,9 @@ export class MasterdataController {
     return this.masterdataService.getRegionMasterDataAll();
   }
 
+  @Get('sub/:id')
+  getSubById(id: number) {
+    return this.masterdataService.getSubGroupNewsMasterDataById(id);
+  }
+
 }
