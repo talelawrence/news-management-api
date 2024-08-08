@@ -3,17 +3,26 @@ import { NewsData } from './entity/newsdata';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Like, Repository } from 'typeorm';
 import { NewsDataRequest, SearchRequest } from './dto/news.dto';
+import { ConfigService } from '@nestjs/config';
+
 
 @Injectable()
 export class NewsdataService {
     constructor(
         @InjectRepository(NewsData)
         private readonly mainGroupNewRepository: Repository<NewsData>,
+        private readonly configService: ConfigService
     ) { }
 
 
     async getNewsDataAll( ) {
+        const domain = this.configService.get<string>('path.url');
+        const pageUrl = this.configService.get<string>('path.domain');
         const data = await this.mainGroupNewRepository.query("SELECT ndt.id, ndt.news_title as superheader, ndt.news_image as image, sgn.name as `type`, ndt.news_detail as context FROM news_data ndt left join sub_group_news sgn ON sgn.id = ndt.sub_news_group ");
+        
+        data.map((item) => { 
+            item.pathUrl = domain + pageUrl+ item.id;
+        });
         return data;
     }
 
@@ -42,7 +51,7 @@ export class NewsdataService {
     }
 
     async createNewsData( newsData: NewsDataRequest ) {
-        
+
         const newSave = new NewsData();
         newSave.news_date = new Date(newsData.dateNews);
         newSave.news_title = newsData.newsTitle;

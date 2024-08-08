@@ -1,7 +1,11 @@
 http:
   host: 'localhost'
   port: 4000
-  
+
+path:
+  url: 'http://localhost:4000'
+  domain: '/detail-news/'
+
 db:
   mysql:
     host: 0
