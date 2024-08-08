@@ -12,6 +12,7 @@ async function bootstrap() {
       allowedHeaders: "*"
   });
   app.setGlobalPrefix('v1');
+
   const port = configService.get('http.port');
   await app.listen(port);
 }
