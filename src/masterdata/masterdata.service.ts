@@ -9,6 +9,7 @@ import { Country } from './entity/country';
 import { SubDistrict } from './entity/subdistrict';
 import { District } from './entity/district';
 import { Departement } from './entity/department';
+import { createReq } from './dto/masterdata.dto';
 
 @Injectable()
 export class MasterdataService {
@@ -76,5 +77,45 @@ export class MasterdataService {
     async getSubGroupNewsMasterDataById(id: number) {
         const data = await this.subGroupNewsRepository.findBy({main_id: id});
         return data;
+    }
+
+    async createMainGroupNews(data: createReq) {
+        const result = await this.mainGroupNewRepository.save(data);
+        return result;
+    } 
+
+    async createSubGroupNews(data: createReq) {
+        const result = await this.subGroupNewsRepository.save(data);
+        return result;
+    }
+
+    async createProvince(data: createReq) {
+        const result = await this.provinceRepository.save(data);
+        return result;
+    }
+
+    async createCountry(data: createReq) {
+        const result = await this.countryRepository.save(data);
+        return result;
+    }
+
+    async createSubDistrict(data: createReq) {
+        const result = await this.subDistrictRepository.save(data);
+        return result;
+    }
+
+    async createDistrict(data: createReq) {
+        const result = await this.districtRepository.save(data);
+        return result;
+    }
+
+    async createDepartement(data: createReq) {
+        const result = await this.departementRepository.save(data);
+        return result;
+    }
+
+    async createRegion(data: createReq) {
+        const result = await this.regionRepository.save(data);
+        return result;
     }
 }

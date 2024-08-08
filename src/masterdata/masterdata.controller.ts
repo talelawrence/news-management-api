@@ -1,15 +1,19 @@
-import { Controller, Get } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { MasterdataService } from './masterdata.service';
 import { get } from 'http';
+import { MainGroupNews } from './entity/maingroupnews';
+import { SubGroupNews } from './entity/subgroupnews';
+import { Province } from './entity/province';
+import { Region } from './entity/region';
+import { Departement } from './entity/department';
+import { District } from './entity/district';
+import { SubDistrict } from './entity/subdistrict';
+import { Country } from './entity/country';
+import { createReq } from './dto/masterdata.dto';
 
 @Controller('masterdata')
 export class MasterdataController {
   constructor(private readonly masterdataService: MasterdataService) {}
-
-  @Get()
-  getHello(): string {
-    return "helle masterdata";
-  }
 
   @Get('/main/all')
   getMainAll() {
@@ -54,6 +58,46 @@ export class MasterdataController {
   @Get('sub/:id')
   getSubById(id: number) {
     return this.masterdataService.getSubGroupNewsMasterDataById(id);
+  }
+
+  @Post('main/create')
+  createMain(@Body() reqBody: createReq) {
+    return this.masterdataService.createMainGroupNews(reqBody);
+  }
+
+  @Post('sub/create')
+  createSub(@Body() reqBody: createReq) {
+    return this.masterdataService.createSubGroupNews(reqBody);
+  }
+
+  @Post('province/create')
+  createProvince(@Body() reqBody: createReq) {
+    return this.masterdataService.createProvince(reqBody);
+  }
+
+  @Post('country/create')
+  createCountry(@Body() reqBody: createReq) {
+    return this.masterdataService.createCountry(reqBody);
+  }
+
+  @Post('subdistrict/create')
+  createSubDistrict(@Body() reqBody: createReq) {
+    return this.masterdataService.createSubDistrict(reqBody);
+  }
+
+  @Post('district/create')
+  createDistrict(@Body() reqBody: createReq) {
+    return this.masterdataService.createDistrict(reqBody);
+  }
+
+  @Post('departement/create')
+  createDepartement(@Body() reqBody: createReq) {
+    return this.masterdataService.createDepartement(reqBody);
+  }
+
+  @Post('region/create')
+  createRegion(@Body() reqBody: createReq) {
+    return this.masterdataService.createRegion(reqBody);
   }
 
 }
