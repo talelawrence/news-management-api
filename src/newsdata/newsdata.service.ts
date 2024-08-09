@@ -130,4 +130,20 @@ export class NewsdataService {
         const result = await this.mainGroupNewRepository.save(data);
         return result;
     }
+
+    async getNewsDataById(id: number) {
+        const data = await this.mainGroupNewRepository.findOneBy({id: id});
+        return data;
+    }
+
+    async getNewsDataDetail(id: number) {
+        const domain = this.configService.get<string>('path.url');
+        const pageUrl = this.configService.get<string>('path.domain');
+        const data = await this.mainGroupNewRepository.query("SELECT ndt.id, ndt.news_title as superheader, ndt.news_image as image, sgn.name as `type`, ndt.news_detail as context FROM news_data ndt left join sub_group_news sgn ON sgn.id = ndt.sub_news_group WHERE ndt.id = ?", [id]);
+        
+        data.map((item) => { 
+            item.pathUrl = domain + pageUrl+ item.id;
+        });
+        return data;
+    }
 }

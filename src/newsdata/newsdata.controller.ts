@@ -40,13 +40,22 @@ export class NewsdataController {
     }
 
     // Call the service to save the news data
-    const data = await this.newsdataService.createNewsData(newsData);
-    return data;
+    try {
+      const data = await this.newsdataService.createNewsData(newsData);
+      return { success: true, message: 'News data created successfully', data : data };
+    } catch (err) {
+      return { success: false, message: err.message };
+    }
   }
 
   @Get('/list')
   async getNewsDataListSearch(@Query() req) {
-    return this.newsdataService.getNewsDataListSearch(req);
+    try {
+      const data = await this.newsdataService.getNewsDataListSearch(req);
+      return { success: true, message: 'News data found', data: data };
+    } catch (err) {
+      return { success: false, message: err.message };
+    }
   }
 
   @Put('/:id')
@@ -74,8 +83,33 @@ export class NewsdataController {
     }
   
     // Call the service to update the news data
-    const data = await this.newsdataService.updateNewsData(newsData,id);
-    return data;
+    try {
+      const data = await this.newsdataService.updateNewsData(newsData, id);
+      return { success: true, message: 'News data updated successfully', data : data };
+    } catch (err) {
+      return { success: false, message: err.message };
+    }
+
+  }
+
+  @Get('edit/:id')
+  async getNewsDataById(@Param('id') id: number) {
+    try {
+      const data = await this.newsdataService.getNewsDataById(id);
+      return { success: true, message: 'News data found', data: data };
+    } catch (err) {
+      return { success: false, message: err.message };
+    }
+  }
+
+  @Get('detail/:id')
+  async getNewsDataDetail(@Param('id') id: number) {
+    try {
+      const data = await this.newsdataService.getNewsDataDetail(id);
+      return { success: true, message: 'News data found', data: data };
+    } catch (err) {
+      return { success: false, message: err.message };
+    }
   }
   
   
