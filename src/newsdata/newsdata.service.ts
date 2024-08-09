@@ -100,4 +100,34 @@ export class NewsdataService {
         const data = await this.mainGroupNewRepository.save(newSave);
         return data;
     }
+
+    async updateNewsData( newsData: NewsDataRequest, id: number ) {
+        const data = await this.mainGroupNewRepository.findOneBy({ id : id});
+        if (!data) {
+            throw new Error('Data not found');
+        }
+
+        data.news_date = new Date(newsData.dateNews);
+        data.news_title = newsData.newsTitle;
+        data.news_detail = newsData.newsDetail;
+        data.key_words = newsData.keywords;
+        data.flag = newsData.flag;
+        data.news_order = newsData.newsOrder;
+        data.report_date = new Date(newsData.reportDate);
+        data.incident_date = new Date(newsData.incidentDate);
+        data.main_news_group = newsData.mainNewsGroup;
+        data.sub_news_group = newsData.subNewsGroup;
+        data.region = newsData.region;
+        data.country = newsData.country;
+        data.province = newsData.province;
+        data.district = newsData.district;
+        data.sub_district = newsData.subDistrict;
+        data.location_name = newsData.locationName;
+        data.latitude = newsData.latitude;
+        data.longitude = newsData.longitude;
+        data.news_image = newsData.newsImage;
+
+        const result = await this.mainGroupNewRepository.save(data);
+        return result;
+    }
 }

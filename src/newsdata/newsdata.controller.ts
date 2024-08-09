@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Query, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put, Query, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { NewsdataService } from './newsdata.service';
 import { NewsDataRequest } from './dto/news.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
@@ -48,4 +48,35 @@ export class NewsdataController {
   async getNewsDataListSearch(@Query() req) {
     return this.newsdataService.getNewsDataListSearch(req);
   }
+
+  @Put('/:id')
+  @UseInterceptors(
+    FileInterceptor('newsImage', {
+      storage: diskStorage({
+        destination: './uploads', // Specify the destination directory
+        filename: (req, file, cb) => {
+          const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+          const ext = extname(file.originalname);
+          const filename = `${file.fieldname}-${uniqueSuffix}${ext}`;
+          cb(null, filename);
+        },
+      }),
+    }),
+  )
+  async update(
+    @Param('id') id: number,
+    @UploadedFile() file: Express.Multer.File,
+    @Body() newsData: NewsDataRequest,
+  ) {
+    // Set the newsImage path in the DTO if a new file is uploaded
+    if (file) {
+      newsData.newsImage = `/uploads/${file.filename}`;
+    }
+  
+    // Call the service to update the news data
+    const data = await this.newsdataService.updateNewsData(newsData,id);
+    return data;
+  }
+  
+  
 }

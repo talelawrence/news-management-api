@@ -118,4 +118,44 @@ export class MasterdataService {
         const result = await this.regionRepository.save(data);
         return result;
     }
+
+    async updateMainGroupNews(data: createReq,id : number) {
+        const result = await this.mainGroupNewRepository.update(id,data);
+        return result;
+    }
+
+    async updateSubGroupNews(data: createReq,id : number) {
+        const result = await this.subGroupNewsRepository.update(id,data);
+        return result;
+    }
+
+    async updateProvince(data: createReq,id : number) {
+        const result = await this.provinceRepository.update(id,data);
+        return result;
+    }
+
+    async updateCountry(data: createReq,id : number) {
+        const result = await this.countryRepository.update(id,data);
+        return result;
+    }
+
+    async updateSubDistrict(data: createReq,id : number) {
+        const result = await this.subDistrictRepository.update(id,data);
+        return result;
+    }
+
+    async updateDistrict(data: createReq,id : number) {
+        const result = await this.districtRepository.update(id,data);
+        return result;
+    }
+
+    async updateDepartement(data: createReq,id : number) {
+        const result = await this.departementRepository.update(id,data);
+        return result;
+    }
+
+    async updateRegion(data: createReq,id : number) {
+        const result = await this.regionRepository.update(id,data);
+        return result;
+    }
 }

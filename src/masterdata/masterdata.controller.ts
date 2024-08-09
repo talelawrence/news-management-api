@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { MasterdataService } from './masterdata.service';
 import { get } from 'http';
 import { MainGroupNews } from './entity/maingroupnews';
@@ -62,42 +62,166 @@ export class MasterdataController {
 
   @Post('main/create')
   createMain(@Body() reqBody: createReq) {
-    return this.masterdataService.createMainGroupNews(reqBody);
+    try {
+      const result =  this.masterdataService.createMainGroupNews(reqBody);
+      return { success: true, message: "create main group news successful", data: result }
+    } catch (err) {
+        return { success: false, message: err.message }
+    }
   }
 
   @Post('sub/create')
   createSub(@Body() reqBody: createReq) {
-    return this.masterdataService.createSubGroupNews(reqBody);
+    try {
+      const result =  this.masterdataService.createSubGroupNews(reqBody);
+      return { success: true, message: "create sub group news successful", data: result }
+    } catch (err) {
+        return { success: false, message: err.message }
+    }
   }
 
   @Post('province/create')
   createProvince(@Body() reqBody: createReq) {
-    return this.masterdataService.createProvince(reqBody);
+    try {
+      const result =  this.masterdataService.createProvince(reqBody);
+      return { success: true, message: "create province successful", data: result }
+    } catch (err) {
+        return { success: false, message: err.message }
+    }
+    
   }
 
   @Post('country/create')
   createCountry(@Body() reqBody: createReq) {
-    return this.masterdataService.createCountry(reqBody);
+    try {
+      const result =  this.masterdataService.createCountry(reqBody);
+      return { success: true, message: "create country successful", data: result }
+    } catch (err) {
+        return { success: false, message: err.message }
+    }
+   
   }
 
   @Post('subdistrict/create')
   createSubDistrict(@Body() reqBody: createReq) {
-    return this.masterdataService.createSubDistrict(reqBody);
+    try {
+      const result =  this.masterdataService.createSubDistrict(reqBody);
+      return { success: true, message: "create sub district successful", data: result }
+    } catch (err) {
+        return { success: false, message: err.message }
+    }
+    
   }
 
   @Post('district/create')
   createDistrict(@Body() reqBody: createReq) {
-    return this.masterdataService.createDistrict(reqBody);
+    try {
+      const result =  this.masterdataService.createDistrict(reqBody);
+      return { success: true, message: "create district successful", data: result }
+    } catch (err) {
+        return { success: false, message: err.message}
+    }
   }
 
   @Post('department/create')
   createDepartement(@Body() reqBody: createReq) {
-    return this.masterdataService.createDepartement(reqBody);
+    try {
+      const result =  this.masterdataService.createDepartement(reqBody);
+      return { success: true, message: "create department successful", data: result }
+    } catch (err) {
+        return { success: false, message: err.message }
+    }
   }
 
   @Post('region/create')
   createRegion(@Body() reqBody: createReq) {
-    return this.masterdataService.createRegion(reqBody);
+    try {
+      const result =  this.masterdataService.createRegion(reqBody);
+      return { success: true, message: "create region successful", data: result }
+    } catch (err) {
+        return { success: false, message: err.message }
+    }
   }
+
+  @Put('main/:id')
+  updateMain(@Body() reqBody: createReq,@Param('id') id: number) {
+    try {
+      const result =  this.masterdataService.updateMainGroupNews(reqBody, id);
+      return { success: true, message: "update main group news successful" , data: result}
+    } catch (err) {
+        return { success: false, message: err.message }
+    }
+  }
+
+  @Put('sub/:id')
+  updateSub(@Body() reqBody: createReq,@Param('id') id: number) {
+    try {
+      const result =  this.masterdataService.updateSubGroupNews(reqBody, id);
+      return { success: true, message: "update sub group news successful" , data: result}
+    } catch (err) {
+        return { success: false, message: err.message }
+    }
+  }
+
+  @Put('province/:id')
+  updateProvince(@Body() reqBody: createReq,@Param('id') id: number) {
+    try {
+      const result =  this.masterdataService.updateProvince(reqBody, id);
+      return { success: true, message: "update province successful" , data: result}
+    } catch (err) {
+        return { success: false, message: err.message }
+    }
+  }
+
+  @Put('country/:id')
+  updateCountry(@Body() reqBody: createReq,@Param('id') id: number) {
+    try {
+      const result =  this.masterdataService.updateCountry(reqBody, id);
+      return { success: true, message: "update country successful" , data: result}
+    } catch (err) {
+        return { success: false, message: err.message }
+    }
+  }
+
+  @Put('subdistrict/:id')
+  updateSubDistrict(@Body() reqBody: createReq,@Param('id') id: number) {
+    try {
+      const result =  this.masterdataService.updateSubDistrict(reqBody, id);
+      return { success: true, message: "update sub district successful" , data: result}
+    } catch (err) {
+        return { success: false, message: err.message }
+    }
+  }
+
+  @Put('district/:id')
+  updateDistrict(@Body() reqBody: createReq,@Param('id') id: number) {
+    try {
+      const result =  this.masterdataService.updateDistrict(reqBody, id);
+      return { success: true, message: "update district successful" , data: result}
+    } catch (err) {
+        return { success: false, message: err.message }
+    }
+  }
+
+  @Put('department/:id')
+  updateDepartement(@Body() reqBody: createReq,@Param('id') id: number) {
+    try {
+      const result =  this.masterdataService.updateDepartement(reqBody, id);
+      return { success: true, message: "update department successful" , data: result}
+    } catch (err) {
+        return { success: false, message: err.message }
+    }
+  }
+
+  @Put('region/:id')
+  updateRegion(@Body() reqBody: createReq,@Param('id') id: number) {
+    try {
+      const result =  this.masterdataService.updateRegion(reqBody, id);
+      return { success: true, message: "update region successful" , data: result}
+    } catch (err) {
+        return { success: false, message: err.message }
+    }
+  }
+  
 
 }
