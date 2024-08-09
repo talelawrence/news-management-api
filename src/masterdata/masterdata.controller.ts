@@ -17,47 +17,96 @@ export class MasterdataController {
 
   @Get('/main/all')
   getMainAll() {
-    return this.masterdataService.getMainGroupNewsMasterDataAll();
+    try {
+      const result = this.masterdataService.getMainGroupNewsMasterDataAll();
+      return { success: true, message: "get main group news successful", data: result }
+    } catch (err) {
+      return { success: false, message: err.message }
+    }
+
   }
 
   @Get('/sub/all')
   getSubAll() {
-    return this.masterdataService.getSubGroupNewsMasterDataAll();
+    try {
+      const result = this.masterdataService.getSubGroupNewsMasterDataAll();
+      return { success: true, message: "get sub group news successful", data: result }
+    } catch (err) {
+      return { success: false, message: err.message }
+    }
   }
 
   @Get('/province/all')
   getProvinceAll() {
-    return this.masterdataService.getProvinceMasterDataAll();
+    try {
+      const result = this.masterdataService.getProvinceMasterDataAll();
+      return { success: true, message: "get province successful", data: result }
+    } catch (err) {
+      return { success: false, message: err.message }
+    }
   }
 
   @Get('/country/all')
   getCountryAll() {
-    return this.masterdataService.getCountryMasterDataAll();
+    try {
+      const result = this.masterdataService.getCountryMasterDataAll();
+      return { success: true, message: "get country successful", data: result }
+    } catch (err) {
+      return { success: false, message: err.message }
+    }
+
   }
 
   @Get('/subdistrict/all')
   getSubDistrictAll() {
-    return this.masterdataService.getSubDistrictMasterDataAll();
+    try {
+      const result = this.masterdataService.getSubDistrictMasterDataAll();
+      return { success: true, message: "get sub district successful", data: result }
+    } catch (err) {
+      return { success: false, message: err.message }
+    }
+
   }
 
   @Get('/district/all')
   getDistrictAll() {
-    return this.masterdataService.getDistrictMasterDataAll();
+    try {
+      const result = this.masterdataService.getDistrictMasterDataAll();
+      return { success: true, message: "get district successful", data: result }
+    } catch (err) {
+      return { success: false, message: err.message } 
+    }
   }
 
   @Get('/department/all')
   getDepartementAll() {
-    return this.masterdataService.getDepartementMasterDataAll();
+    try {
+      const result = this.masterdataService.getDepartementMasterDataAll();
+      return { success: true, message: "get department successful", data: result }
+    } catch (err) {
+      return { success: false, message: err.message }
+    }
+
   }
 
   @Get('/region/all')
   getRegionAll() {
-    return this.masterdataService.getRegionMasterDataAll();
+    try {
+      const result = this.masterdataService.getRegionMasterDataAll();
+      return { success: true, message: "get region successful", data: result }
+    } catch (err) {
+      return { success: false, message: err.message }
+    }
   }
 
   @Get('sub/:id')
   getSubById(id: number) {
-    return this.masterdataService.getSubGroupNewsMasterDataById(id);
+    try {
+      const result = this.masterdataService.getSubGroupNewsMasterDataById(id);
+      return { success: true, message: "get sub group news by id successful", data: result }
+    } catch (err) {
+      return { success: false, message: err.message }
+    }
   }
 
   @Post('main/create')
