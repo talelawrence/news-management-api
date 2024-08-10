@@ -74,11 +74,11 @@ export class NewsdataService {
         
         const dataDaily = await this.mainGroupNewRepository.query(dailyQuery, [...params, 1]);
         dataDaily.map((item) => { 
-            item.pathUrl = pageUrl+ item.image;
+            item.pathUrl = domain+ item.image;
         });
         const dataSpecial = await this.mainGroupNewRepository.query(specialQuery, [...params, 2]);
         dataSpecial.map((item) => { 
-            item.pathUrl = pageUrl+ item.image;
+            item.pathUrl = domain+ item.image;
         });
     
         return {
