@@ -18,7 +18,7 @@ export class NewsdataService {
     async getNewsDataAll( ) {
         const domain = this.configService.get<string>('path.url');
         const pageUrl = this.configService.get<string>('path.domain');
-        const data = await this.mainGroupNewRepository.query("SELECT ndt.id, ndt.news_title as superheader, ndt.news_image as image, sgn.name as `type`, ndt.news_detail as context FROM news_data ndt left join sub_group_news sgn ON sgn.id = ndt.sub_news_group ");
+        const data = await this.mainGroupNewRepository.query("SELECT ndt.id, CASE WHEN ndt.flag = 1 THEN 'ข่าวประจำวัน' WHEN ndt.flag = 2 THEN 'ข่าวพิเศษ' ELSE ndt.flag END as superheader, ndt.news_title as header, ndt.news_image as image, sgn.name as `type`, ndt.news_detail as context FROM news_data ndt left join sub_group_news sgn ON sgn.id = ndt.sub_news_group ");
         
         data.map((item) => { 
             item.pathUrl = domain + pageUrl+ item.id;
@@ -27,10 +27,17 @@ export class NewsdataService {
     }
 
     async getNewsDataListSearch(req: SearchRequest) {
+        const domain = this.configService.get<string>('path.url');
+        const pageUrl = this.configService.get<string>('path.domain');
         let baseQuery = `
             SELECT 
                 ndt.id, 
-                ndt.news_title as superheader, 
+                CASE 
+                WHEN ndt.flag = 1 THEN 'ข่าวประจำวัน' 
+                WHEN ndt.flag = 2 THEN 'ข่าวพิเศษ' 
+                ELSE ndt.flag 
+                END as superheader,
+                ndt.news_title as header, 
                 ndt.news_image as image, 
                 sgn.name as \`type\`, 
                 ndt.news_detail as context 
@@ -66,7 +73,13 @@ export class NewsdataService {
         const specialQuery = baseQuery + " AND flag = ?";
         
         const dataDaily = await this.mainGroupNewRepository.query(dailyQuery, [...params, 1]);
+        dataDaily.map((item) => { 
+            item.pathUrl = pageUrl+ item.image;
+        });
         const dataSpecial = await this.mainGroupNewRepository.query(specialQuery, [...params, 2]);
+        dataSpecial.map((item) => { 
+            item.pathUrl = pageUrl+ item.image;
+        });
     
         return {
             dailynews: dataDaily,

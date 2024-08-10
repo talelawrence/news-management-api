@@ -19,7 +19,6 @@ export class MasterdataController {
   async getMainAll() {
     try {
       const result = await this.masterdataService.getMainGroupNewsMasterDataAll();
-      console.log(result);
       return { success: true, message: "get main group news successful", data: result }
     } catch (err) {
       return { success: false, message: err.message }
